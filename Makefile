@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -lcrypto
+CFLAGS = -lcrypto -std=c99
 SRC_FILES = main.c sha_hash.c network.c
 
 %.o:
