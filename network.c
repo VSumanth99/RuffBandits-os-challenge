@@ -26,7 +26,7 @@ void setup_server(int portno)
 
   server_address.sin_family = AF_INET;
   //connect to the appropriate ip address
-  server_address.sin_addr.s_addr = inet_addr("192.168.101.10");
+  server_address.sin_addr.s_addr = INADDR_ANY;//inet_addr("192.168.101.10");
   server_address.sin_port = htons(portno);
 
   //bind the server socket to the server address
