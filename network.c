@@ -26,7 +26,7 @@ void setup_server(int portno)
 
   server_address.sin_family = AF_INET;
   //connect to the appropriate ip address
-  server_address.sin_addr.s_addr = INADDR_ANY;//inet_addr("192.168.101.10");
+  server_address.sin_addr.s_addr = INADDR_ANY;
   server_address.sin_port = htons(portno);
 
   //bind the server socket to the server address
@@ -46,11 +46,14 @@ void setup_server(int portno)
 
 }
 
-void listen_accept_client()
-{
+void listen_client() {
     //start listening for connections from the client
     listen(server_socket,5);
     client_length = sizeof(client_address);
+}
+
+void accept_client()
+{
 
     //accept connection from the client
     newserver_socket = accept(server_socket, (struct sockaddr *)&client_address, &client_length);

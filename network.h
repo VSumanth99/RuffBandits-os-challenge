@@ -24,7 +24,8 @@ struct ClientRequest
 typedef struct ClientRequest ClientRequest;
 
 void setup_server(int portno);
-void listen_accept_client();
+void accept_client();
+void listen_client();
 ClientRequest retrieve_client_request();
 void write_to_client(uint64_t message);
 void close_socket();
