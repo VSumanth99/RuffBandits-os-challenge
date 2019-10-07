@@ -9,7 +9,13 @@
 
 int main( int argc, char *argv[] )
 {
-  uint64_t answer = 12002;
+  uint64_t answer = 0;
+  if(argc != 2)
+  {
+    printf("Invalid usage\n");
+    printf("Correct usage: server <port>\n");
+    return 1;
+  }
   setup_server(atoi(argv[1]));
   listen_client();
     for(;;) {
