@@ -11,7 +11,7 @@
 /*
 *The following is a struct used for dealing with the server request.
 *It retrieves the hash value received from the server along with the start,
-*end and priority value
+*end and priority value, and the corresponding socket
 */
 
 struct ClientRequest
@@ -20,14 +20,14 @@ struct ClientRequest
   uint64_t start;
   uint64_t end;
   uint8_t priority;
+  int socket;
 };
 typedef struct ClientRequest ClientRequest;
 
 void setup_server(int portno);
-void accept_client();
 void listen_client();
-ClientRequest retrieve_client_request();
-void write_to_client(uint64_t message);
+ClientRequest accept_and_retrieve_client_request();
+void write_to_client(int client_socket, uint64_t message);
 void close_socket();
 
 #endif

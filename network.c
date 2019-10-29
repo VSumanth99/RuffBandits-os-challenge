@@ -1,6 +1,6 @@
 #include "network.h"
 
-int server_socket, newserver_socket;
+int server_socket;
 int client_length;
 struct sockaddr_in server_address, client_address;
 
@@ -48,26 +48,20 @@ void setup_server(int portno)
 
 void listen_client() {
     //start listening for connections from the client
-    listen(server_socket,5);
+    listen(server_socket,100);
     client_length = sizeof(client_address);
 }
 
-void accept_client()
+
+ClientRequest accept_and_retrieve_client_request()
 {
+  //accept connection from the client
+  int newserver_socket = accept(server_socket, (struct sockaddr *)&client_address, &client_length);
 
-    //accept connection from the client
-    newserver_socket = accept(server_socket, (struct sockaddr *)&client_address, &client_length);
-
-    if (newserver_socket < 0) {
-       perror("ERROR on accept");
-       exit(1);
-    }
-
-}
-
-ClientRequest retrieve_client_request()
-{
-
+  if (newserver_socket < 0) {
+     perror("ERROR on accept");
+     exit(1);
+  }
   char input[49];
 
   //after connection is established, receive a 49 byte message
@@ -98,23 +92,25 @@ ClientRequest retrieve_client_request()
  r.priority = p;
  for(int i = 0; i < 32; i++)
   r.hash[i] = hash[i];
-
+r.socket = newserver_socket;
   return r;
+
 }
 
 
-void write_to_client(uint64_t message)
+void write_to_client(int client_socket, uint64_t message)
 {
   ArrayInteger8 a;
   a.number=message;
   char buffer[8];
   for(int i = 0; i < 8; i++)
     buffer[i] = (char) a.array[7-i];
-  int n = write(newserver_socket, buffer, 8);
+  int n = write(client_socket, buffer, 8);
   if (n < 0) {
      perror("ERROR writing to socket");
      exit(1);
   }
+  close(client_socket);
 }
 
 void close_socket()
