@@ -53,9 +53,9 @@ To effectively compare these caching methods, I used the following custom client
 
 * PRIO_LAMBDA=0
 
-The goal was to provide a substantial challenge to push each implementation to its limits while also allowing each test to be completed quickly so that more holistic results and averages could be obtained and examined.
+The goal was to provide a substantial challenge to push each implementation to its limits while also allowing each test to be completed quickly so that more holistic results could be obtained and examined.
 
-The custom client used sends 500 requests with a difficulty lowered to 10000000 so that each test finishes in a few minutes. 
+The custom client used sends 500 requests with a difficulty lowered to 10000000 so that each test finishes in a few minutes. Additionally for importance is assigned to the difficulty of each request rather than the number of requests to assign more importance
 
 Print statements except minor ones common to all implementations are removed to better standardize results. Additionally, since caching affects time more than it does efficient scheduling, the only result I was concerned about was the time the server took to finish processing all the client requests (This was measured with the Unix time command).
 
@@ -66,12 +66,17 @@ These results are displayed below in tabular format.
 | Trial | No Cache / Baseline | Arraylist with Linear Search | Hashtable |
 |-------|---------------------|------------------------------|-----------|
 | 1     | 7m32.484s           | 7m16.300s                    | 5m48.219s |
-| 2     | 7m34.122s           |                              |           |
-| 3     | 7m32.372s           |                              |           |
-| 4     | 7m31.428s           |                              |           |
-| 5     | 7m33.465s           |                              |           |
+| 2     | 7m34.122s           | 7m11.293s                    | 5m35.874s |
+| 3     | 7m32.372s           | 7m17.450s                    | 5m52.562s |
+| 4     | 7m31.428s           | 7m15.359s                    | 5m33.792s |
+| 5     | 7m33.465s           | 7m19.773s                    | 5m35.413s |
 
 ### Conclusion
+
+The results of this experiment are pretty straightforward and expected.
+1. The baseline performed the slowest, as it had to compute fresh hashes every single time.
+2. The linear search cache only performed a little bit better because while it adds the benefit of the cache, the additional work of having to search the array in O(n) time counterbalances any gains.
+3. The hash table performed the best. Being able to lookup hashes in constant time makes the cache much more efficient and helpful. 
 
 ## Experiment: Marius 
 

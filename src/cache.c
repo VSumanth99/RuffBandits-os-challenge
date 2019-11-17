@@ -11,7 +11,7 @@ uint64_t checkCache(Cache* c, uint8_t check_hash[32]) {
     int code = check_hash[0] + check_hash[1] + check_hash[2] + check_hash[3];
 
     if (code>999) {
-        code = code - 20;
+        code = code - 21;
     }
 
     printf("Calculated hash code: %d\n",code); 
@@ -44,6 +44,10 @@ void insertCache(Cache* c, uint8_t k[32], uint64_t d) {
     newItem->data=d;
 
     int code = k[0] + k[1] + k[2] + k[3];
+
+    if (code>999) {
+        code = code - 21;
+    }
 
     //printf("Calculated code: %d\n",code);
 
