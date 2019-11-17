@@ -108,7 +108,7 @@ void* scheduler()
         pthread_mutex_lock(&requests_lock);
         if(request_top != NULL || paused_top != NULL)
         {
-            if((request_top !=NULL) && (paused_top==NULL || request_top->priority_score > -1.0f * paused_top->priority_score))
+            if((request_top !=NULL) && (paused_top==NULL || request_top->priority_score > paused_top->priority_score))
             {
               n = remove_top(&requests);
             }
@@ -146,7 +146,7 @@ void* scheduler()
                 remove_top(&running_requests);
                 pthread_mutex_unlock(&running_requests_lock);
                 //fix the priority of the node to be paused
-                running_node->priority_score *= -1.0f;
+                running_node->priority_score *= -100.0f;
                 add_to_heap(&paused_requests, running_node);
             }
 
