@@ -3,9 +3,7 @@
 
 uint64_t checkCache(Cache* c, uint8_t check_hash[32]) {
     //printf("Checking cache for hash: ");
-    for (int i=0;i<32;i++) {
-        //printf("%d ",check_hash[i]);
-    }
+    
     //printf("\n");
 
     int code = check_hash[0] + check_hash[1] + check_hash[2] + check_hash[3];
@@ -14,13 +12,13 @@ uint64_t checkCache(Cache* c, uint8_t check_hash[32]) {
         code = code - 20;
     }
 
-    printf("Calculated hash code: %d\n",code); 
+    //printf("Calculated hash code: %d\n",code); 
         
     if (compareKey(c->table[code]->key,check_hash)) {
-        printf("Hash was found!\n");
+        //printf("Hash was found!\n");
         return c->table[code]->data;   
     } else {
-        printf("Hash was not found!\n");
+        //printf("Hash was not found!\n");
     }
     return -1;
 }
@@ -28,10 +26,7 @@ uint64_t checkCache(Cache* c, uint8_t check_hash[32]) {
 void insertCache(Cache* c, uint8_t k[32], uint64_t d) {
 
 
-    //printf("Inserting value into table:\nKey:");
-    for (int i=0;i<32;i++) {
-        //printf("%d ",k[i]);
-    }
+   
     //printf("\nValue: %lu\n",d);
 
     CacheItem * newItem = malloc(sizeof(CacheItem));
@@ -49,11 +44,9 @@ void insertCache(Cache* c, uint8_t k[32], uint64_t d) {
 
     c->table[code]=newItem;
 
-    printf("Entered the following into index:%d\n",code);
+    //printf("Entered the following into index:%d\n",code);
     //printf("Key: ");
-    for (int j=0;j<32;j++) {
-        //printf("%d ",c->table[code]->key[j]);
-    }
+    
     //printf("\nVal: %lu",c->table[code]->data);
     //printf("\n");
     return;
@@ -68,13 +61,9 @@ int compareKey(uint8_t k1[32], uint8_t k2[32]) {
     }
     
     //printf("Table is filled at that index.\nFirst key is this: ");
-    for (int i=0;i<32;i++) {
-        //printf("%d ",k1[i]);
-    }
+   
     //printf("\nSecond key is this: ");
-    for (int i=0;i<32;i++) {
-        //printf("%d ",k2[i]);
-    }
+    
     //printf("\n");
 
     for (int i=0;i<32;i++) {
