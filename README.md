@@ -85,6 +85,12 @@ The whole point of this experiment was to see by myself, which is truly faster a
 
 I've also tried to use processes and threads, but this did not improve the speed of solution, but even made it slower. It's probably because proccesses are more resource hungry than threads and on top of that when creating threads for the multiple processes the threads have to share the processes resources among them.
 
+## Experiment: Alex 
+
+## Splitting the range of searching the number and assign it to different processes
+The purpose of this experiment was to experiment with the splitting of the range of the number that the hash function needs to look up to find the number. The hypothesis is that we could 
+run in pseudo-parallel the searching for a hash process by using different threads that look up for the number in smaller ranges than the original one. Unfortunately the implementation is not complete as it's still buggy so we couldn't also veridy the solution.  
+
 # Experiments (Sumanth) 
 ## Experiment 1 - Determining the optimum number of threads using a FIFO scheduler
 ### Motivation:
