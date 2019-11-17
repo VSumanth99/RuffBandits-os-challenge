@@ -15,7 +15,7 @@
 
 int k = 0;
 
-pthread_mutex_t queue_lock; //mutex to ensure thread protection for request queue
+pthread_mutex_t queue_lock;  //mutex to ensure thread protection for request queue
 pthread_mutex_t queue_lock_2; //mutex to ensure thread protection for request queue
 sem_t sem_free_threads; //semaphores to handle the requests in the queue
 Queue requests; //create a queue to hold all our requests
