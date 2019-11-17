@@ -1,13 +1,14 @@
-
 #ifndef NETWORK_H
 #define NETWORK_H
 
-
 #include <stdlib.h>
 #include <netdb.h>
-#include <netinet/in.h>
+#include <strings.h> //for bzero
+#include <unistd.h>
 #include <stdint.h>
+#include <stdio.h>
 #include "byte_utils.h"
+#include <pthread.h>
 /*
 *The following is a struct used for dealing with the server request.
 *It retrieves the hash value received from the server along with the start,
@@ -16,17 +17,18 @@
 
 struct ClientRequest
 {
-  uint8_t hash[32];
-  uint64_t start;
-  uint64_t end;
-  uint8_t priority;
-  int socket;
+    uint8_t hash[32];
+    uint64_t start;
+    uint64_t end;
+    uint8_t priority;
+    int socket;
 };
+
 typedef struct ClientRequest ClientRequest;
 
 void setup_server(int portno);
 void listen_client();
-ClientRequest accept_and_retrieve_client_request();
+ClientRequest* accept_and_retrieve_client_request();
 void write_to_client(int client_socket, uint64_t message);
 void close_socket();
 

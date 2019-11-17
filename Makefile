@@ -1,6 +1,6 @@
 CC = gcc
-CFLAGS = -lcrypto -std=c99 -lpthread
-SRC_FILES = main.c sha_hash.c network.c
+CFLAGS = -lcrypto -std=c99 -lpthread -g
+SRC_FILES = main.c sha_hash.c cache.c network.c priority_queue.c
 EXEC = server
 %.o:
 
