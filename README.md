@@ -41,22 +41,35 @@ For the hash table cache, the basic structure and operation of the cache is kept
 
 To effectively compare these caching methods, I used the following custom client: 
 
-TOTAL=500 
-START=1 
-DIFFICULTY=10000000 
-REP_PROB_PERCENT=20 
-DELAY_US=100000 
-PRIO_LAMBDA=0 
+* TOTAL=500
 
-The goal was to provide a substantial challenge to push each implementation to its limits while also allowing each test to be completed quickly so that more holistic results and averages could be obtained and examined. The relevant parameters are listed below.
+* START=1
 
-The custom client used sends 500 with a difficulty substantially to 100000 so that each test finishes in a few minutes. 
+* DIFFICULTY=10000000
 
-Print statements except minor ones to common to all implementations are removed to better standardize results. Additionally, since caching affects time more than it does efficient scheduling, the only result I was concerned about was the time the server took to finish processing all the client requests (This was measured with the Unix time command).
+* REP_PROB_PERCENT=20
+
+* DELAY_US=100000
+
+* PRIO_LAMBDA=0
+
+The goal was to provide a substantial challenge to push each implementation to its limits while also allowing each test to be completed quickly so that more holistic results and averages could be obtained and examined.
+
+The custom client used sends 500 requests with a difficulty lowered to 10000000 so that each test finishes in a few minutes. 
+
+Print statements except minor ones common to all implementations are removed to better standardize results. Additionally, since caching affects time more than it does efficient scheduling, the only result I was concerned about was the time the server took to finish processing all the client requests (This was measured with the Unix time command).
 
 These results are displayed below in tabular format.
 
 ### Results / Comparison
+
+| Trial | No Cache / Baseline | Arraylist with Linear Search | Hashtable |
+|-------|---------------------|------------------------------|-----------|
+| 1     | 7m32.484s           | 7m16.300s                    | 5m48.219s |
+| 2     | 7m34.122s           |                              |           |
+| 3     | 7m32.372s           |                              |           |
+| 4     | 7m31.428s           |                              |           |
+| 5     | 7m33.465s           |                              |           |
 
 ### Conclusion
 
