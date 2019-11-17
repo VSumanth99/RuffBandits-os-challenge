@@ -12,3 +12,4 @@ Andreas Klit Bundgaard Jense (s161765)
 **Experiments**\
 Marius:
 * Comparing the speed of multiprocessing and multithreading
+* Comparing speed of regular multiprocessing with multiprocessing on top of FIFO scheduling
