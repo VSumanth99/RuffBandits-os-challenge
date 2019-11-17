@@ -51,10 +51,12 @@ Average
 	
 ### Conclusion
 
-## Other Experiment: Marius 
+## Experiment: Marius 
 
-* Comparing the speed of multiprocessing and multithreading
-* Comparing speed of regular multiprocessing with multiprocessing on top of FIFO scheduling
+## Comparing the speed of multiprocessing and multithreading
+The whole point of this experiment was to see by myself, which is truly faster and more efficiently multiple processes or multiple threads (as implemented by other team members). Trying out a different number of processes and comparing it to the results of the test with only threads showed that using threads is more efficient than using several processes since creating a process consumes time and resources. However creating threads definitely more efficient as threads belonging to the same process share the belongings resources of that process. In the end my experiment didn't influence the final speed of our solution.
+
+I've also tried to use processes and threads, but this did not improve the speed of solution, but even made it slower. It's probably because proccesses are more resource hungry than threads and on top of that when creating threads for the multiple processes the threads have to share the processes resources among them.
 
 # Experiments (Sumanth) 
 ## Experiment 1 - Determining the optimum number of threads using a FIFO scheduler
