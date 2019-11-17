@@ -1,6 +1,7 @@
 CC = gcc
-CFLAGS = -lcrypto -std=c99 -lpthread -g
-SRC_FILES = main.c sha_hash.c cache.c network.c priority_queue.c
+CFLAGS = -lcrypto -std=c99 -lpthread -O3 -flto -Iinclude/
+SRC_DIR = src
+SRC_FILES = $(wildcard $(SRC_DIR)/*.c)
 EXEC = server
 %.o:
 
@@ -8,4 +9,5 @@ all:
 	$(CC) $(SRC_FILES) $(CFLAGS) -o $(EXEC)
 
 clean:
-	git rm $(EXEC)
+	 rm $(EXEC)
+	 

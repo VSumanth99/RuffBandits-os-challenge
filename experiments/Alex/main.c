@@ -22,6 +22,10 @@ Queue requests; //create a queue to hold all our requests
 
 int start_request = 0, end_request = 0;
 int request_number = 0;
+<<<<<<< HEAD
+bool found = 0;
+=======
+>>>>>>> e9170474c0b5232aece03401876ceaca84e9fff8
 int file_index = 0;
 int boolean_history[1000000];
 
@@ -33,6 +37,26 @@ void* handle_req(void* t)
     uint64_t answer = 0;
 
     //printf("Starting request: %d\n", req_num);
+<<<<<<< HEAD
+    printf("Starting, Request number: %d Thread number: %d Boolean history number: %d\n", req_num, thread_number, boolean_history[request_number]);
+    for (uint64_t i = r->start; i < r->end; i++) {
+        printf("Continue.., Request number: %d Thread number: %d Boolean history number: %d\n", req_num, thread_number, boolean_history[request_number]);
+        if (boolean_history[request_number]) {
+            printf("Closing 1, Request number: %d Thread number: %d Boolean history number: %d\n", req_num, thread_number, boolean_history[request_number]);
+            sem_post(&sem_free_threads);
+            printf("Closing 2, Request number: %d Thread number: %d Boolean history number: %d\n", req_num, thread_number, boolean_history[request_number]);
+            pthread_exit(NULL);
+            printf("Closing 2, Request number: %d Thread number: %d \n", req_num, thread_number);
+            return NULL;
+            printf("Closing 3, Request number: %d Thread number: %d \n", req_num, thread_number);
+
+        }
+        if (is_hash_equal(i, r->hash)) {
+            printf("Continue...is_hash, Request number: %d Thread number: %d Boolean history number: %d\n", req_num, thread_number, boolean_history[request_number]);
+            pthread_mutex_lock(&queue_lock_2);
+            found = 1;
+            boolean_history[request_number] = 1;
+=======
     printf("Starting, Request number: %d Thread number: %d Boolean history number: %d\n", req_num, thread_number, boolean_history[req_num]);
     for (uint64_t i = r->start; i < r->end; i++) {
         if (boolean_history[req_num]) {
@@ -46,6 +70,7 @@ void* handle_req(void* t)
             printf("Continue...is_hash, Request number: %d Thread number: %d Boolean history number: %d\n", req_num, thread_number, boolean_history[req_num]);
             pthread_mutex_lock(&queue_lock_2);
             boolean_history[req_num] = 1;
+>>>>>>> e9170474c0b5232aece03401876ceaca84e9fff8
             pthread_mutex_unlock(&queue_lock_2);
             answer = i;
             break;
@@ -54,17 +79,31 @@ void* handle_req(void* t)
     if (answer != 0) {
         write_to_client(r->socket, answer);
         //printf("Closing request: %d\n", ++end_request);
+<<<<<<< HEAD
+        printf("Closing, Request number: %d Thread number: %d Boolean history number: %d\n", req_num, thread_number, boolean_history[request_number]);
+=======
         printf("Closing, Request number: %d Thread number: %d Boolean history number: %d\n", req_num, thread_number, boolean_history[req_num]);
+>>>>>>> e9170474c0b5232aece03401876ceaca84e9fff8
         close(r->socket);
         free(r);
     }
 
+<<<<<<< HEAD
+    printf("Thread exit, Request number: %d Thread number: %d Boolean history number: %d\n", req_num, thread_number, boolean_history[request_number]);
+    sem_post(&sem_free_threads);
+    pthread_exit(NULL);
+    return NULL;
+}
+
+int * split_range(void* t) {
+=======
     printf("Thread exit, Request number: %d Thread number: %d Boolean history number: %d\n", req_num, thread_number, boolean_history[req_num]);
     sem_post(&sem_free_threads);
     pthread_exit(NULL);
 }
 
 int * split_range(void* t, int *num_values) {
+>>>>>>> e9170474c0b5232aece03401876ceaca84e9fff8
     struct ClientRequest *r = (((Node*)t)->data);
     int array_size = 1;
     int difference = r->end - r->start;
@@ -80,10 +119,15 @@ int * split_range(void* t, int *num_values) {
     int *ranges = malloc(array_size + 1);
     int quantum = difference / array_size;
     int i;
+<<<<<<< HEAD
+    for (i = 0; i < array_size; i++) {
+        ranges[i] = r->start + i * quantum;
+=======
     *num_values = 1;
     for (i = 0; i < array_size; i++) {
         ranges[i] = r->start + i * quantum;
         *num_values += 1;
+>>>>>>> e9170474c0b5232aece03401876ceaca84e9fff8
     }
     ranges[i] = r->end;
     return ranges;
@@ -105,6 +149,16 @@ void* scheduler()
         if(n!=NULL)
         {
 
+<<<<<<< HEAD
+            //pthread_create(&thread_no, NULL, handle_req, (void*)(n));
+            pthread_t thread_no[1000];
+
+            int *ranges = split_range((void*)(n));
+            size_t number_of_threads = sizeof(ranges)/sizeof(ranges[0]);
+            request_number += 1;
+            printf("Request number: %d\n", request_number);
+            for (int i = 0; i < number_of_threads; i++) {
+=======
             pthread_t thread_no[1000];
 
             int num_values;
@@ -112,6 +166,7 @@ void* scheduler()
             request_number += 1;
             //printf("Request number: %d\n", request_number);
             for (int i = 0; i < num_values - 1; i++) {
+>>>>>>> e9170474c0b5232aece03401876ceaca84e9fff8
                 sem_wait(&sem_free_threads);
 
                 struct ClientRequest *r = (((Node*)n)->data);
@@ -166,4 +221,8 @@ int main( int argc, char *argv[] )
     close_socket();
 
     return 0;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> e9170474c0b5232aece03401876ceaca84e9fff8

@@ -43,7 +43,7 @@ void* handle_req(void* t)
     struct ClientRequest *r = node->r;
     uint64_t answer = 0;
 
-    printf("Starting request: %d\n", ++start_request);
+    //printf("Starting request: %d\n", ++start_request);
     
     answer = checkCache(cache, r->hash);
 
@@ -83,7 +83,7 @@ void* handle_req(void* t)
 
     
     write_to_client(r->socket, answer);
-    printf("Closing request: %d\n", ++end_request);
+    //printf("Closing request: %d\n", ++end_request);
     close(r->socket);
     free(r);
     pthread_mutex_lock(&running_requests_lock);
