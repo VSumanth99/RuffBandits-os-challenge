@@ -85,11 +85,33 @@ The whole point of this experiment was to see by myself, which is truly faster a
 
 I've also tried to use processes and threads, but this did not improve the speed of solution, but even made it slower. It's probably because proccesses are more resource hungry than threads and on top of that when creating threads for the multiple processes the threads have to share the processes resources among them.
 
-## Experiment: Alex 
+## Experiment: Alexandros
 
 ## Splitting the range of searching the number and assign it to different processes
-The purpose of this experiment was to experiment with the splitting of the range of the number that the hash function needs to look up to find the number. The hypothesis is that we could 
-run in pseudo-parallel the searching for a hash process by using different threads that look up for the number in smaller ranges than the original one. Unfortunately the implementation is not complete as it's still buggy so we couldn't also veridy the solution.  
+The purpose of this experiment was to experiment with the splitting of the range of the numbers that our hash function needs to look up to find the number. The hypothesis is that we could 
+run in parallel the function that searches for the right number by using different threads. In order to do so we take the range from the request and divide it into K smaller parts. For it's part we create a new thread that will try to solve the problem. When a thread finds the number it returns it to the client and exits. At the same time it sets a global variable so that the rest of the threads can exit without having to finish all the search process and thus gaining time. We run the experiment 3 times for number of threads K=1,2,4 with the below configuration.
+
+### Client parameters:
+* Total requests: 100
+* Start: Random
+* Difficulty: 30000000
+* Repetition probability (%): 20
+* Request delay (us): 750000
+* Priority disabled
+
+
+### Results
+| Number of Threads (K) | Run 1 | Run 2| Run 3| Median Score|
+| ------------- | ------------- | -------- | ------| ----|
+| 4  | 109827886 |108743485| 115161634 |108743485|
+| 2  | 85039204 | 91164865 | 98814641 | 91164865|
+| 1  | 89848811 | 98576378 | 106401209 | 98576378 |
+ 
+
+
+### Conclusion
+From the above table it's clear that our server achieves the best response time for K=2 number of threads. That might be due to the context switch that takes time between the threads. The more the threads the more time is wasted for the context switching. Finally despite having an apparent optimazation with this experiment we didn't use it to the final solution as they were better experiments to include ti to the final solution that achieved more optimization.   
+
 
 # Experiments (Sumanth) 
 ## Experiment 1 - Determining the optimum number of threads using a FIFO scheduler
