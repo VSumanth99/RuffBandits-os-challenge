@@ -93,24 +93,25 @@ run in parallel the function that searches for the right number by using differe
 
 ### Client parameters:
 * Total requests: 100
-* Start: Random
+* Start: 0
 * Difficulty: 30000000
-* Repetition probability (%): 20
+* Repetition probability disabled
 * Request delay (us): 750000
 * Priority disabled
+* Seed: 3435245
 
 
 ### Results
 | Number of Threads (K) | Run 1 | Run 2| Run 3| Median Score|
 | ------------- | ------------- | -------- | ------| ----|
-| 4  | 109827886 |108743485| 115161634 |108743485|
-| 2  | 85039204 | 91164865 | 98814641 | 91164865|
+| 4  | 57730295 |56558719| 56770396 |56558719|
+| 2  | 66473721 | 70733123 | 67845146 | 67845146|
 | 1  | 89848811 | 98576378 | 106401209 | 98576378 |
  
 
 
 ### Conclusion
-From the above table it's clear that our server achieves the best response time for K=2 number of threads. That might be due to the context switch that takes time between the threads. The more the threads the more time is wasted for the context switching. Finally despite having an apparent optimazation with this experiment we didn't use it to the final solution as they were better experiments to include ti to the final solution that achieved more optimization.   
+Comparing the results from the table with the results from the FIFO scheduler expirement below we can see that there is not an improvement in the performance while using this method. This could be due to the fact that the time that it takes for creating and deleting the threads, that are eventually exiting without the correct answer, is more expensive than assign the original whole range in one thread. Since we didn't achieve any improvements that experiment wasn't used for the final solution.   
 
 
 # Experiments (Sumanth) 
